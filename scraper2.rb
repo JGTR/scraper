@@ -13,7 +13,7 @@ require 'open-uri'
 
 # #--------------------------------------------
 scraped_database = SQLite3::Database.new "students.db"
-scraped_database.execute "CREATE TABLE IF NOT EXISTS students(Id INTEGER PRIMARY KEY, name TEXT, quote TEXT, bio TEXT, work TEXT, github TEXT, treehouse TEXT, codeschool TEXT, coderwall TEXT)"
+scraped_database.execute "CREATE TABLE IF NOT EXISTS students(Id INTEGER PRIMARY KEY, name TEXT, quote TEXT, bio TEXT, work TEXT, github TEXT, treehouse TEXT, codeschool TEXT, coderwall TEXT, twitter TEXT, linkedin TEXT)"
 
 
 
@@ -39,9 +39,11 @@ student_hrefs.each do |x|
      treehouse = page.css(".section-services a[href*='treehouse']").attribute("href").value
      codeschool = page.css(".section-services a[href*='codeschool']").attribute("href").value
      coderwall = page.css(".section-services a[href*='coderwall']").attribute("href").value
+     twitter = page.css(".social-icons a[href*='twitter']").attribute("href").value
+     linkedin = page.css(".social-icons a[href*='linkedin']").attribute("href").value
      #scraped_database = SQLite3::Database.new ":scraped_data:"
      #scraped_database.execute "CREATE TABLE IF NOT EXISTS students(Id INTEGER PRIMARY KEY, name TEXT)"
-     scraped_database.execute("INSERT INTO students (name, quote, bio, work, github, treehouse, codeschool, coderwall) VALUES (:student_name, :quote, :bio, :work, :github, :treehouse, :codeschool, :coderwall)", {:student_name => student_name, :quote => quote, :bio => bio, :work => work, :github => github, :treehouse => treehouse, :codeschool => codeschool, :coderwall => coderwall})
+     scraped_database.execute("INSERT INTO students (name, quote, bio, work, github, treehouse, codeschool, coderwall, twitter, linkedin) VALUES (:student_name, :quote, :bio, :work, :github, :treehouse, :codeschool, :coderwall, :twitter, :linkedin)", {:student_name => student_name, :quote => quote, :bio => bio, :work => work, :github => github, :treehouse => treehouse, :codeschool => codeschool, :coderwall => coderwall, :twitter => twitter, :linkedin => linkedin})
      #scraped_database.execute "SELECT * FROM students"
 
   rescue OpenURI::HTTPError => ex
