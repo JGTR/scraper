@@ -29,7 +29,6 @@ href.match(/s|S/)!=nil # avi black magic code regular expressions searching for 
 
 student_hrefs.each do |x|
   begin
-   # crap = {}
    page = Nokogiri::HTML(open("http://students.flatironschool.com/#{x}"))
      student_name = page.search("h4").first.text
      quote = page.search("h3").first.text.strip
